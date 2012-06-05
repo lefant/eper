@@ -18,10 +18,10 @@ tick(LD,Data) ->
 to_estatsd(PrfSys) ->
   PrfSys1 = lists:keydelete(now, 1, PrfSys),
   {value, {node, Node}, PrfSys2} = lists:keytake(node, 1, PrfSys1),
-  IdParts = ["eper" | lists:reverse(string:tokens(atom_to_list(Node), "@"))],
+  IdParts = lists:reverse(string:tokens(atom_to_list(Node), "@.")),
   Id0 = string:join(IdParts, "."),
   F = fun({K,V}) ->
-          Id = Id0 ++ "." ++ atom_to_list(K),
+          Id = "eper." ++ atom_to_list(K) ++ "." ++ Id0,
           estatsd:gauge(Id, V)
       end,
   lists:foreach(F, PrfSys2),
