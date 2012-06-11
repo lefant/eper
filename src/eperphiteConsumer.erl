@@ -18,7 +18,7 @@ tick(LD,Data) ->
 to_estatsd(PrfSys) ->
   PrfSys1 = lists:keydelete(now, 1, PrfSys),
   {value, {node, Node}, PrfSys2} = lists:keytake(node, 1, PrfSys1),
-  NodeKey = "eper." ++ node_key(Node),
+  NodeKey = "eper." ++ node_key(Node) ++ ".",
   F = fun({K,V}) ->
           Id = NodeKey ++ atom_to_list(K),
           estatsd:gauge(Id, V)
