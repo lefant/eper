@@ -178,6 +178,8 @@ body_fun(Str) ->
           {M,'_','_'};
         {ok,[{remote,1,{atom,1,M},{var,1,_}}]} ->
           {M,'X','_'};
+        {ok,[{atom,1,M}]} ->
+          {M,'_','_'};
         {ok,C} ->
           exit({this_is_too_confusing,C})
      end
